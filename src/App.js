@@ -3,6 +3,7 @@ import * as tf from "@tensorflow/tfjs";
 import * as facemash from "@tensorflow-models/facemesh";
 import Webcam from "react-webcam";
 import useStyles from "./styles";
+import { drawMesh } from "./helpers";
 
 function App() {
   const classes = useStyles();
@@ -41,6 +42,9 @@ function App() {
       canvasRef.current.height = videoHeight;
 
       const face = await net.estimateFaces(video);
+
+      const context = canvasRef.current.getContext("2d");
+      drawMesh(face, context);
     }
   }
 
